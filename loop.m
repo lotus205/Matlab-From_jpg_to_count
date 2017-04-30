@@ -44,7 +44,7 @@ while true
         rozmiar_zdj=rozmiar_x*rozmiar_y;
         prog_bin=(mono_suma/(rozmiar_zdj));
         prog_bin=prog_bin/255
-        prog_bin=prog_bin/1.1;
+        prog_bin=prog_bin/1.4; % DOSTOSOWANIE PROGU BINEARYZACJI
 
         %rozmiar_obrazu=whos('obraz_org')
 
