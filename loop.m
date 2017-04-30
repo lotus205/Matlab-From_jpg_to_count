@@ -38,41 +38,43 @@ while true
     %rozmiar_obrazu=whos('obraz_org')
 
     obraz_bin=im2bw(obraz_org,0.6);
-%     figure
-% 
-% 
-%     subplot 221
-%     imshow(obraz_org);
-%     %plot(x,y,'b.')
-%     title('obraz oryginalny')
-%     subplot 222
-%     imshow(obraz_bin);
-%     title('obraz zbinearyzowany')    
-%     subplot 223
-%     imshow(obraz_org);
-%     title('obraz oryginalny z wskazanym punktem')
-%     hold on
-%     plot(x,y,'b.')
-%     hold off
-%     subplot 224
-%     imshow(obraz_bin);
-%     title('obraz binarny z wskazanym punktem')
+    figure (1)
+
+
+    subplot 221
+    imshow(obraz_org);
+    %plot(x,y,'b.')
+    title('obraz oryginalny')
+    subplot 222
+    imshow(obraz_bin);
+    title('obraz zbinearyzowany')    
+    subplot 223
+    imshow(obraz_org);
+    title('obraz oryginalny z wskazanym punktem')
+    hold on
+    plot(x,y,'b.')
+    hold off
+    subplot 224
+    imshow(obraz_bin);
+    title('obraz binarny z wskazanym punktem')
         if obraz_bin(x,y)==0%%1==piksel bia³y=miejsce wolne
-%             hold on;
+            hold on;
              disp('miejsce jest wolne ')
              miejsce=0;%%miejsce jest wolne
-%             plot(x,y,'g.')
-%             hold off;
+            plot(x,y,'g.')
+            hold off;
         end
         if obraz_bin(x,y)==1%%%%0==piksel czarny=miejsce zajete
              disp('miejsce jest zajete ')
               miejsce=1;%%miejsce jest zajete
-%              hold on;
-%              plot(x,y,'r.')
-%              hold off;
+             hold on;
+             plot(x,y,'r.')
+             hold off;
         end
-        xlswrite ('wynik_z_matlaba',miejsce,'Arkusz pierwszy','A2')
-        csvwrite('wynik_z_matlaba',miejsce)
+      %  xlswrite ('wynik_z_matlaba',miejsce,'Arkusz pierwszy','A2')
+      %  csvwrite('wynik_z_matlaba_csv',miejsce)
+      pause(5);
+      close (1)
          else
         disp('to nie jest JPEG');
         
@@ -96,7 +98,7 @@ while true
         end
     end
 %---------------DELETE ALL FILES IN FOLDER-----------------  
-disp('przed endem  whila')
+%disp('przed endem  whila')
     pause(5);
     
 end
