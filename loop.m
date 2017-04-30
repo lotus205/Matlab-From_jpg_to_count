@@ -29,9 +29,14 @@ while true
 
    
     k=imread(najbardziej_aktualny_plik);
+dane_z_whos=whos;
 
-    x=1560;%%wsp x analizowanego punktu max 3120 srodek x=1560
-    y=2080;%%wsp y alanizowanego punktu min 4160 srodek y=2080
+rozmiar_zdjecia=dane_z_whos(3).size
+rozmiar_y=rozmiar_zdjecia(1)
+rozmiar_x=rozmiar_zdjecia(2)
+
+    x=rozmiar_x/2;%%wsp x analizowanego punktu max 3120 srodek x=1560
+    y=rozmiar_y/2;%%wsp y alanizowanego punktu min 4160 srodek y=2080
 
     obraz_org=k;
 
