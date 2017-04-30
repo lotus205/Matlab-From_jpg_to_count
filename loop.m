@@ -34,9 +34,25 @@ while true
         x=rozmiar_x/2;%%wsp x analizowanego punktu max 3120 srodek x=1560
         y=rozmiar_y/2;%%wsp y alanizowanego punktu min 4160 srodek y=2080
 
-        obraz_org=k;
+              obraz_org=k;
+obraz_mono=rgb2gray(obraz_org);
+obraz_mono=double(obraz_mono);
+mono_suma=0;
+mono_suma=double(mono_suma);
+for xx=1:rozmiar_y
+    for yy=1:rozmiar_x
+        mono_suma=mono_suma+obraz_mono(xx,yy);
+    end
+end
+mono_suma=double(mono_suma)
+rozmiar_zdj=rozmiar_x*rozmiar_y;
+prog_bin=(mono_suma/(rozmiar_zdj));
+prog_bin=prog_bin/255;
+%prog_bin=prog_bin+0.1;
 
-        obraz_bin=im2bw(obraz_org,0.6);
+        %rozmiar_obrazu=whos('obraz_org')
+
+        obraz_bin=im2bw(obraz_org,prog_bin);
         figure (1);
 
 %---DISPLAING PICTURE---
