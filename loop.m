@@ -28,24 +28,23 @@ while true
 %         
 %         %OPEN LAST JPG FILE
 %         k=imread(najbardziej_aktualny_plik);
-        k = snapshot(cam);
-        [rozmiar_y,rozmiar_x,kolor] = size(k);
+        obraz_org = snapshot(cam);
+        [rozmiar_y,rozmiar_x,kolor] = size(obraz_org);
 
-              obraz_org=k;
-obraz_mono=rgb2gray(obraz_org);
-obraz_mono=double(obraz_mono);
-mono_suma=0;
-mono_suma=double(mono_suma);
-for xx=1:rozmiar_y
-    for yy=1:rozmiar_x
-        mono_suma=mono_suma+obraz_mono(xx,yy);
-    end
-end
-mono_suma=double(mono_suma)
-rozmiar_zdj=rozmiar_x*rozmiar_y;
-prog_bin=(mono_suma/(rozmiar_zdj));
-prog_bin=prog_bin/255;
-%prog_bin=prog_bin+0.1;
+        obraz_mono=rgb2gray(obraz_org);
+        obraz_mono=double(obraz_mono);
+        mono_suma=0;
+        mono_suma=double(mono_suma);
+        for xx=1:rozmiar_y
+            for yy=1:rozmiar_x
+                mono_suma=mono_suma+obraz_mono(xx,yy);
+            end
+        end
+        mono_suma=double(mono_suma);
+        rozmiar_zdj=rozmiar_x*rozmiar_y;
+        prog_bin=(mono_suma/(rozmiar_zdj));
+        prog_bin=prog_bin/255
+        prog_bin=prog_bin/1.1;
 
         %rozmiar_obrazu=whos('obraz_org')
 
@@ -77,13 +76,13 @@ prog_bin=prog_bin/255;
         subplot 221
         imshow(obraz_org);
         %plot(x,y,'b.')
-        title('obraz org')
+        title('org image')
         subplot 222
         imshow(obraz_bin);        
-        title('obraz zbinearyzowany') 
+        title('bin image') 
         subplot 223        
         imshow(obraz_small); 
-        title('obraz malej rozdielczosci') 
+        title('low res image') 
         
 %---DISPLAING PICTURE---
 %         subplot 221
@@ -136,7 +135,11 @@ prog_bin=prog_bin/255;
         PostName2 = "Id";
         PostValue2 = 123321;
         url = "http://parkingdemoapp.azurewebsites.net/api/spaces";
-        response = webwrite(url,PostName1,PostValue1,PostName2,PostValue2);
+        try    
+            response = webwrite(url,PostName1,PostValue1,PostName2,PostValue2);
+        catch
+            disp('The connection to URL timed out after 5 seconds.');
+        end
         %pause(5)
 %---SENDING COUNT OF FREE PARKING PLACES---
 %     else
