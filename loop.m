@@ -31,48 +31,83 @@ while true
         k = snapshot(cam);
         [rozmiar_y,rozmiar_x,kolor] = size(k);
 
-        x=rozmiar_x/2;%%wsp x analizowanego punktu max 3120 srodek x=1560
-        y=rozmiar_y/2;%%wsp y alanizowanego punktu min 4160 srodek y=2080
-
         obraz_org=k;
 
         obraz_bin=im2bw(obraz_org,0.6);
+        
+        rozmiar_y_small = rozmiar_y/5;
+        rozmiar_x_small = rozmiar_x/5;
+        
+        %small_size = [rozmiar_y_small,rozmiar_x_small];
+        %small = zeros(small_size);
+        
+        obraz_small = uint8(0);
+        obraz_small(rozmiar_y_small , rozmiar_x_small) = obraz_small;
+      
+        for yy = 1:rozmiar_y_small-1
+           for xx = 1:rozmiar_x_small-1
+               srednia = 0;
+               for ix = 0:4
+                  for iy = 0:4
+                     srednia = srednia + obraz_bin(yy*5+iy, xx*5+ix);
+                  end
+               end
+               srednia = srednia*10;
+               obraz_small(yy,xx) = srednia;
+           end
+        end
+        
         figure (1);
-
-%---DISPLAING PICTURE---
         subplot 221
         imshow(obraz_org);
         %plot(x,y,'b.')
-        title('obraz oryginalny')
+        title('obraz org')
         subplot 222
-        imshow(obraz_bin);
-        title('obraz zbinearyzowany')    
-        subplot 223
-        imshow(obraz_org);
-        title('obraz oryginalny z wskazanym punktem')
-        hold on
-        plot(x,y,'b.')
-        hold off
-        subplot 224
-        imshow(obraz_bin);
-        title('obraz binarny z wskazanym punktem')
+        imshow(obraz_bin);        
+        title('obraz zbinearyzowany') 
+        subplot 223        
+        imshow(obraz_small); 
+        title('obraz malej rozdielczosci') 
+        
+%---DISPLAING PICTURE---
+%         subplot 221
+%         imshow(obraz_org);
+%         %plot(x,y,'b.')
+%         title('obraz oryginalny')
+%         subplot 222
+%         imshow(obraz_bin);
+%         title('obraz zbinearyzowany')    
+%         subplot 223
+%         imshow(obraz_org);
+%         title('obraz oryginalny z wskazanym punktem')
+%         hold on
+%         plot(x,y,'b.')
+%         hold off
+%         subplot 224
+%         imshow(obraz_bin);
+%         title('obraz binarny z wskazanym punktem')
 %---DISPLAING PICTURE---
 
-%---PICTURE PROCESSING---       
-        if obraz_bin(x,y)==0%%1==piksel bia³y=miejsce wolne
+%---PICTURE PROCESSING--- 
+        srodek_x=rozmiar_x_small/2;%%wsp x analizowanego punktu x 
+        srodek_y=rozmiar_y_small/2;%%wsp y alanizowanego punktu y
+        %srodek_x jest rowne 64
+        %srodek_y jest rowne 48
+        %disp(obraz_small(srodek_y,srodek_x))
+        if obraz_small(srodek_y,srodek_x) >= 127 %%1==piksel bia³y=miejsce wolne
             hold on;
             STR = ['for:',num2str(i),', miejsce jest wolne'];
             disp(STR)
             miejsce=1;%%miejsce jest wolne
-            plot(x,y,'g.')
+            plot(srodek_x,srodek_y,'g.','MarkerSize',20)
             hold off;
         end
-        if obraz_bin(x,y)==1%%%%0==piksel czarny=miejsce zajete
+        if obraz_small(srodek_y,srodek_x) < 128 %%%%0==piksel czarny=miejsce zajete
              STR = ['for:',num2str(i),', miejsce jest zajete'];
              disp(STR)
              miejsce=0;%%miejsce jest zajete
              hold on;
-             plot(x,y,'r.')
+             plot(srodek_x,srodek_y,'r.','MarkerSize',20)
              hold off;
         end
 %---PICTURE PROCESSING---   
