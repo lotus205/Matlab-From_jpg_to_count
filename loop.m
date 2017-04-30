@@ -25,13 +25,10 @@ while true
         
         %OPEN LAST JPG FILE
         k=imread(najbardziej_aktualny_plik); 
-        [m,n,x] = size(k);
-        m
-        n
-       
-        %
-        x=n/2;%%wsp x analizowanego punktu max 3120 srodek x=1560
-        y=m/2;%%wsp y alanizowanego punktu min 4160 srodek y=2080
+        [rozmiar_y,rozmiar_x,kolor] = size(k);
+
+        x=rozmiar_x/2%;%%wsp x analizowanego punktu max 3120 srodek x=1560
+        y=rozmiar_y/2%;%%wsp y alanizowanego punktu min 4160 srodek y=2080
 
         obraz_org=k;
 
